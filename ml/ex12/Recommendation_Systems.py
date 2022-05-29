@@ -8,9 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # loading the data from the csv file to apandas dataframe
 movies_data = pd.read_csv('movies.csv')
 
-
 selected_features = ['genres','keywords','tagline','cast','director']
-
 
 # replacing the null valuess with null string
 for feature in selected_features:
@@ -30,15 +28,11 @@ similarity = cosine_similarity(feature_vectors)
 movie_name = input(' Enter your favourite movie name : ')
 
 list_of_all_titles = movies_data['title'].tolist()
-
 find_close_match = difflib.get_close_matches(movie_name, list_of_all_titles)
-
 close_match = find_close_match[0]
 
 index_of_the_movie = movies_data[movies_data.title == close_match]['index'].values[0]
-
 similarity_score = list(enumerate(similarity[index_of_the_movie]))
-
 sorted_similar_movies = sorted(similarity_score, key = lambda x:x[1], reverse = True) 
 
 print('Movies suggested for you : \n')
